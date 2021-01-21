@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.smartvoting.DataBaseHelper.VotingDatabaseSource;
 import com.example.smartvoting.Model.UserModel;
 
 import java.util.concurrent.Executor;
@@ -31,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private UserModel userModel;
 
+    private VotingDatabaseSource votingDatabaseSource;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.loginBtn);
 
 
+        votingDatabaseSource = new VotingDatabaseSource(this);
 
         BiometricManager biometricManager = BiometricManager.from(this);
         switch (biometricManager.canAuthenticate()) {
@@ -76,10 +79,16 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                Toast.makeText(RegisterActivity.this, "You registered successfully", Toast.LENGTH_SHORT).show();
-                userModel = new UserModel(userName,userPhone,userNid);
 
-                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                userModel = new UserModel(userName,userPhone,userNid);
+                boolean status = votingDatabaseSource.createNewUser(userModel);
+                if(status){
+                    Toast.makeText(RegisterActivity.this, "You registered successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                }else{
+                    Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             @Override

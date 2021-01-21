@@ -39,7 +39,7 @@ public class VotingDatabaseHelper extends SQLiteOpenHelper {
                     USER_COL_VOTING_START_TIME+" TEXT,"+
                     USER_COL_VOTING_END_TIME+" TEXT,"+
                     USER_COL_TOTAL_COUNT_VOTE+" TEXT,"+
-                    USER_COL_VOTING_Result+" TEXT,);";
+                    USER_COL_VOTING_Result+" TEXT)";
 
     public VotingDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

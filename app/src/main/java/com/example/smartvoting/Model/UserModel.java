@@ -1,8 +1,11 @@
 package com.example.smartvoting.Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserModel implements Serializable {
+    private int userId;
     private String userName;
     private String userPhone;
     private String userNid;
@@ -12,14 +15,24 @@ public class UserModel implements Serializable {
     private String VotingEndTime;
     private int totalVote;
 
+    public static List<UserModel> userModelList = new ArrayList<>();
+
+
+    public static List<UserModel> getUserModelList() {
+        return userModelList;
+    }
+
+
+
 
     // for register new User
-    public UserModel(String userName, String userNid) {
+    public UserModel(int userId,String userName, String userPhone, String userNid) {
+        this.userId = userId;
         this.userName = userName;
+        this.userPhone = userPhone;
         this.userNid = userNid;
     }
 
-    // for register new User
     public UserModel(String userName, String userPhone, String userNid) {
         this.userName = userName;
         this.userPhone = userPhone;
@@ -32,6 +45,11 @@ public class UserModel implements Serializable {
         this.candidateName = candidateName;
         VotingStartTime = votingStartTime;
         VotingEndTime = votingEndTime;
+    }
+
+
+    public int getUserId() {
+        return userId;
     }
 
 
@@ -98,4 +116,10 @@ public class UserModel implements Serializable {
     public void setTotalVote(int totalVote) {
         this.totalVote = totalVote;
     }
+
+
+    public static void setUserModelList(List<UserModel> userModelList) {
+        UserModel.userModelList = userModelList;
+    }
+
 }

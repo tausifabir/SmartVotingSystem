@@ -2,9 +2,12 @@ package com.example.smartvoting.DataBaseHelper;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.smartvoting.Model.UserModel;
+
+import java.util.ArrayList;
 
 public class VotingDatabaseSource {
 
@@ -36,6 +39,7 @@ public class VotingDatabaseSource {
         contentValues.put(VotingDatabaseHelper.USER_COL_PHONE,userModel.getUserPhone());
         contentValues.put(VotingDatabaseHelper.USER_COL_NID,userModel.getUserNid());
         long id = sqLiteDatabase.insert(VotingDatabaseHelper.TABLE_USER,null,contentValues);
+        this.close();
 
         if(id > 0){
             return  true;
@@ -60,6 +64,35 @@ public class VotingDatabaseSource {
             return  false;
         }
 
+    }
+
+    public ArrayList<UserModel> getAllUsers(){
+        ArrayList<UserModel> userModelArrayList = new ArrayList<>();
+        this.open();
+
+        Cursor cursor = sqLiteDatabase.query(VotingDatabaseHelper.TABLE_USER,null,null,
+                null, null,null,null );
+        cursor.moveToFirst();
+        if(cursor != null && cursor.getCount() > 0){
+
+            for(int i = 0; i < cursor.getCount();i++){
+
+                int id = cursor.getInt(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_ID));
+                String name = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_NAME));
+                String phone = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_PHONE));
+                String nid = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_NID));
+                userModel = new UserModel(id,name,phone,nid);
+                userModelArrayList.add(userModel);
+                cursor.moveToNext();
+
+            }
+
+        }
+
+
+        cursor.close();
+        this.close();
+        return userModelArrayList;
     }
 
 }
