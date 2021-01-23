@@ -84,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean status = votingDatabaseSource.createNewUser(userModel);
                 if(status){
                     Toast.makeText(RegisterActivity.this, "You registered successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                    startActivity( new Intent(RegisterActivity.this,ParticipatedVoterListActivity.class));
                 }else{
                     Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                 }
@@ -120,7 +120,9 @@ public class RegisterActivity extends AppCompatActivity {
                     userPhoneET.setError("Field must not be empty");
                 }else if(userNid.isEmpty()){
                     userNidET.setError("Field must not be empty");
-                }else{
+                }else if(userNid.length()<6 ){
+                    userNidET.setError("Nid must be 6 characters");
+                } else{
                     biometricPrompt.authenticate(promptInfo);
                 }
             }

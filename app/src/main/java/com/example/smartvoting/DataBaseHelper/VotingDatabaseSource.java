@@ -23,7 +23,6 @@ public class VotingDatabaseSource {
 
 
     public  void open(){
-
         sqLiteDatabase = votingDatabaseHelper.getWritableDatabase();
     }
 
@@ -95,4 +94,33 @@ public class VotingDatabaseSource {
         return userModelArrayList;
     }
 
+    public ArrayList<UserModel> getAllVotingEvents(){
+        ArrayList<UserModel> eventModelList = new ArrayList<>();
+        this.open();
+
+        Cursor cursor = sqLiteDatabase.query(VotingDatabaseHelper.TABLE_USER,null,null,
+                null, null,null,null );
+        cursor.moveToFirst();
+        if(cursor != null && cursor.getCount() > 0){
+
+            for(int i = 0; i < cursor.getCount();i++){
+
+                int id = cursor.getInt(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_ID));
+                String candidatePosition = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_CANDIDATE_POSITION));
+                String candidateName = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_CANDIDATE_NAME));
+                String votingStartTime = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_VOTING_START_TIME));
+                String votingEndTime = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_VOTING_END_TIME));
+                userModel = new UserModel(candidatePosition,candidateName,votingStartTime,votingEndTime);
+                eventModelList.add(userModel);
+                cursor.moveToNext();
+
+            }
+
+        }
+
+
+        cursor.close();
+        this.close();
+        return eventModelList;
+    }
 }

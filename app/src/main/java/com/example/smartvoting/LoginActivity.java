@@ -12,8 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.smartvoting.Adapter.VoterListAdapter;
+import com.example.smartvoting.DataBaseHelper.VotingDatabaseSource;
 import com.example.smartvoting.Model.UserModel;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,6 +37,10 @@ public class LoginActivity extends AppCompatActivity {
     private BiometricPrompt.PromptInfo promptInfo;
 
 
+    private VotingDatabaseSource votingDatabaseSource;
+    private List<UserModel> userModelList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +53,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-
+        votingDatabaseSource = new VotingDatabaseSource(this);
+        userModelList = votingDatabaseSource.getAllUsers();
 
 
 
@@ -70,8 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(LoginActivity.this, "You loggedin successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this,VoterDashBoardActivity.class));
-                    Toast.makeText(LoginActivity.this, "User: "+userName, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(LoginActivity.this, "User: "+userPhone, Toast.LENGTH_SHORT).show();
+
                 }
 
 
@@ -95,9 +102,21 @@ public class LoginActivity extends AppCompatActivity {
         userLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 userName = userLoginNameET.getText().toString();
                 userPhone = userLoginPhoneET.getText().toString();
-                if(userName.isEmpty()){
+                for(int i=0; i<=userModelList.size()-1;i++){
+
+                    if (userName.equals(userModelList.get(i).getUserName()) && userPhone.equals(userModelList.get(i).getUserPhone())) {
+                        biometricPrompt.authenticate(promptInfo);
+                        Toast.makeText(LoginActivity.this, "Matched", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+
+                }
+
+               /* if(userName.isEmpty()){
                     userLoginNameET.setError("Field must not be empty");
                 }else if(userPhone.isEmpty()){
                     userLoginPhoneET.setError("Field must not be empty");
@@ -105,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     biometricPrompt.authenticate(promptInfo);
                 }
-
+*/
             }
         });
 
