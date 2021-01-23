@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.example.smartvoting.Adapter.EventListAdapter;
 import com.example.smartvoting.Adapter.VoterListAdapter;
 import com.example.smartvoting.DataBaseHelper.VotingDatabaseSource;
+import com.example.smartvoting.Model.EventModel;
 import com.example.smartvoting.Model.UserModel;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class ViewAllVotingEventsActivity extends AppCompatActivity {
 
     private VotingDatabaseSource votingDatabaseSource;
     private EventListAdapter eventListAdapter;
-    private List<UserModel> votingEventList;
+    private List<EventModel> votingEventList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

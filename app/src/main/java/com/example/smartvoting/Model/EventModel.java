@@ -1,80 +1,44 @@
 package com.example.smartvoting.Model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserModel implements Serializable {
+public class EventModel {
+
     private int userId;
-    private String userName;
-    private String userPhone;
-    private String userNid;
+    private int eventId;
     private String candidatePosition;
     private String candidateName;
     private String VotingStartTime;
     private String VotingEndTime;
     private int totalVote;
 
-    public static List<UserModel> userModelList = new ArrayList<>();
+
+    public static List<UserModel> eventModelList = new ArrayList<>();
 
 
-    public static List<UserModel> getUserModelList() {
-        return userModelList;
-    }
-
-
-
-
-    // for register new User
-    public UserModel(int userId,String userName, String userPhone, String userNid) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userPhone = userPhone;
-        this.userNid = userNid;
-    }
-
-    public UserModel(String userName, String userPhone, String userNid) {
-        this.userName = userName;
-        this.userPhone = userPhone;
-        this.userNid = userNid;
-    }
-
-    // for creating Voting Event and Candidate
-    public UserModel(String candidatePosition, String candidateName, String votingStartTime, String votingEndTime) {
+    public EventModel(int eventId, String candidatePosition, String candidateName, String votingStartTime, String votingEndTime) {
+        this.eventId = eventId;
         this.candidatePosition = candidatePosition;
         this.candidateName = candidateName;
         VotingStartTime = votingStartTime;
         VotingEndTime = votingEndTime;
     }
 
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
+    }
 
     public int getUserId() {
         return userId;
     }
 
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserPhone() {
-        return userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
-
-    public String getUserNid() {
-        return userNid;
-    }
-
-    public void setUserNid(String userNid) {
-        this.userNid = userNid;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getCandidatePosition() {
@@ -117,19 +81,15 @@ public class UserModel implements Serializable {
         this.totalVote = totalVote;
     }
 
-
-    public static void setUserModelList(List<UserModel> userModelList) {
-        UserModel.userModelList = userModelList;
+    public static List<UserModel> getEventModelList() {
+        return eventModelList;
     }
-
 
     @Override
     public String toString() {
-        return "UserModel{" +
+        return "EventModel{" +
                 "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", userPhone='" + userPhone + '\'' +
-                ", userNid='" + userNid + '\'' +
+                ", eventId=" + eventId +
                 ", candidatePosition='" + candidatePosition + '\'' +
                 ", candidateName='" + candidateName + '\'' +
                 ", VotingStartTime='" + VotingStartTime + '\'' +

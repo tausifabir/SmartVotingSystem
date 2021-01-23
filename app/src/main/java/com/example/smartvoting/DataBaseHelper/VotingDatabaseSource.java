@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.smartvoting.Model.EventModel;
 import com.example.smartvoting.Model.UserModel;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class VotingDatabaseSource {
     private VotingDatabaseHelper votingDatabaseHelper;
     private SQLiteDatabase sqLiteDatabase;
     private UserModel userModel;
+    private EventModel eventModel;
 
     public VotingDatabaseSource(Context context) {
         votingDatabaseHelper = new VotingDatabaseHelper(context);
@@ -51,11 +53,14 @@ public class VotingDatabaseSource {
     public  boolean createVotingPosition(UserModel userModel){
         this.open();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(VotingDatabaseHelper.USER_COL_CANDIDATE_POSITION,userModel.getCandidatePosition());
-        contentValues.put(VotingDatabaseHelper.USER_COL_CANDIDATE_NAME,userModel.getCandidateName());
-        contentValues.put(VotingDatabaseHelper.USER_COL_VOTING_START_TIME,userModel.getVotingStartTime());
-        contentValues.put(VotingDatabaseHelper.USER_COL_VOTING_END_TIME,userModel.getVotingEndTime());
-        long id = sqLiteDatabase.insert(VotingDatabaseHelper.TABLE_USER,null,contentValues);
+        contentValues.put(VotingDatabaseHelper.USER_COL_CANDIDATE_POSITION,eventModel.getEventId());
+        contentValues.put(VotingDatabaseHelper.USER_COL_CANDIDATE_POSITION,eventModel.getCandidatePosition());
+        contentValues.put(VotingDatabaseHelper.USER_COL_VOTING_END_TIME,eventModel.getUserId());
+        contentValues.put(VotingDatabaseHelper.USER_COL_CANDIDATE_NAME,eventModel.getCandidateName());
+        contentValues.put(VotingDatabaseHelper.USER_COL_VOTING_START_TIME,eventModel.getVotingStartTime());
+        contentValues.put(VotingDatabaseHelper.USER_COL_VOTING_END_TIME,eventModel.getVotingEndTime());
+        contentValues.put(VotingDatabaseHelper.USER_COL_VOTING_END_TIME,eventModel.getTotalVote());
+        long id = sqLiteDatabase.insert(VotingDatabaseHelper.TABLE_EVENT,null,contentValues);
 
         if(id > 0){
             return  true;
@@ -94,11 +99,11 @@ public class VotingDatabaseSource {
         return userModelArrayList;
     }
 
-    public ArrayList<UserModel> getAllVotingEvents(){
-        ArrayList<UserModel> eventModelList = new ArrayList<>();
+    public ArrayList<EventModel> getAllVotingEvents(){
+        ArrayList<EventModel> eventModelList = new ArrayList<>();
         this.open();
 
-        Cursor cursor = sqLiteDatabase.query(VotingDatabaseHelper.TABLE_USER,null,null,
+        Cursor cursor = sqLiteDatabase.query(VotingDatabaseHelper.TABLE_EVENT,null,null,
                 null, null,null,null );
         cursor.moveToFirst();
         if(cursor != null && cursor.getCount() > 0){
@@ -110,8 +115,8 @@ public class VotingDatabaseSource {
                 String candidateName = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_CANDIDATE_NAME));
                 String votingStartTime = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_VOTING_START_TIME));
                 String votingEndTime = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_VOTING_END_TIME));
-                userModel = new UserModel(candidatePosition,candidateName,votingStartTime,votingEndTime);
-                eventModelList.add(userModel);
+                eventModel = new EventModel(id,candidatePosition,candidateName,votingStartTime,votingEndTime);
+                eventModelList.add(eventModel);
                 cursor.moveToNext();
 
             }

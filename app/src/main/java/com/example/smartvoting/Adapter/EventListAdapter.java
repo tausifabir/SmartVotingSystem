@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smartvoting.Model.EventModel;
 import com.example.smartvoting.Model.UserModel;
 import com.example.smartvoting.R;
 
@@ -17,10 +18,10 @@ import java.util.List;
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
 
     private Context context;
-    private List<UserModel> votingEventList;
+    private List<EventModel>votingEventList;
 
 
-    public EventListAdapter(Context context, List<UserModel> votingEventList) {
+    public EventListAdapter(Context context, List<EventModel> votingEventList) {
         this.context = context;
         this.votingEventList = votingEventList;
     }
