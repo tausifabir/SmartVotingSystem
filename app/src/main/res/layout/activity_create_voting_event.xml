@@ -43,6 +43,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/candidatePositionET" />
 
+        <EditText
+            android:id="@+id/votingCodeET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:ems="10"
+            android:hint="Candidate Voting Code"
+            android:inputType="textPersonName"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/candidateNameET" />
+
         <Button
             android:id="@+id/votingStartTimeBtn"
             android:layout_width="wrap_content"
@@ -56,7 +71,7 @@
             android:layout_marginLeft="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/candidateNameET" />
+            app:layout_constraintTop_toBottomOf="@+id/votingCodeET" />
 
         <Button
             android:id="@+id/votingEndTimeBtn"

@@ -9,6 +9,7 @@ public class EventModel {
     private int eventId;
     private String candidatePosition;
     private String candidateName;
+    private String votingCode;
     private String VotingStartTime;
     private String VotingEndTime;
     private int totalVote;
@@ -17,13 +18,25 @@ public class EventModel {
     public static List<UserModel> eventModelList = new ArrayList<>();
 
 
-    public EventModel(int eventId, String candidatePosition, String candidateName, String votingStartTime, String votingEndTime) {
+    public EventModel(int eventId, String candidatePosition, String candidateName, String votingCode, String votingStartTime, String votingEndTime) {
         this.eventId = eventId;
         this.candidatePosition = candidatePosition;
         this.candidateName = candidateName;
+        this.votingCode = votingCode;
         VotingStartTime = votingStartTime;
         VotingEndTime = votingEndTime;
     }
+
+    public EventModel(String candidatePosition, String candidateName, String votingCode, String votingStartTime, String votingEndTime) {
+        this.candidatePosition = candidatePosition;
+        this.candidateName = candidateName;
+        this.votingCode = votingCode;
+        VotingStartTime = votingStartTime;
+        VotingEndTime = votingEndTime;
+    }
+
+
+
 
     public int getEventId() {
         return eventId;
@@ -55,6 +68,15 @@ public class EventModel {
 
     public void setCandidateName(String candidateName) {
         this.candidateName = candidateName;
+    }
+
+
+    public String getVotingCode() {
+        return votingCode;
+    }
+
+    public void setVotingCode(String votingCode) {
+        this.votingCode = votingCode;
     }
 
     public String getVotingStartTime() {

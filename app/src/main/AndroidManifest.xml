@@ -19,11 +19,14 @@
         </activity>
         <activity android:name=".CandidateResultActivity" />
         <activity android:name=".ViewAllVotingEventsActivity" />
-        <activity android:name=".CreateVotingEventActivity" />
+        <activity android:name=".CreateVotingEventActivity">
+
+        </activity>
         <activity android:name=".AdminDashboardActivity" />
         <activity android:name=".SubmitVoteActivity" />
         <activity android:name=".VoterDashBoardActivity" />
         <activity android:name=".RegisterActivity" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

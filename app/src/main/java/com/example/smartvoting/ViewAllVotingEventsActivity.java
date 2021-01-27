@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.smartvoting.Adapter.EventListAdapter;
 import com.example.smartvoting.Adapter.VoterListAdapter;
@@ -36,5 +37,8 @@ public class ViewAllVotingEventsActivity extends AppCompatActivity {
         eventListRV.setLayoutManager(linearLayoutManager);
         eventListAdapter = new EventListAdapter(ViewAllVotingEventsActivity.this,votingEventList);
         eventListRV.setAdapter(eventListAdapter);
+
+
+
     }
 }

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.smartvoting.DataBaseHelper.VotingDatabaseSource;
+import com.example.smartvoting.Model.EventModel;
 import com.example.smartvoting.Model.UserModel;
 
 import java.text.SimpleDateFormat;
@@ -20,10 +21,10 @@ import java.util.Calendar;
 public class CreateVotingEventActivity extends AppCompatActivity {
 
     private Button votingStartTimeBtn, votingEndTimeBtn, creatingNewEventBtn;
-    private EditText candidatePositionET, candidateNameET;
+    private EditText candidatePositionET, candidateNameET, votingCodeET;
     boolean isDateChanged = false;
 
-    private UserModel userModel;
+    private EventModel eventModel;
     private VotingDatabaseSource votingDatabaseSource;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class CreateVotingEventActivity extends AppCompatActivity {
 
         candidatePositionET = findViewById(R.id.candidatePositionET);
         candidateNameET = findViewById(R.id.candidateNameET);
-
+        votingCodeET = findViewById(R.id.votingCodeET);
         votingStartTimeBtn = findViewById(R.id.votingStartTimeBtn);
         votingEndTimeBtn = findViewById(R.id.votingEndTimeBtn);
         creatingNewEventBtn = findViewById(R.id.creatingNewEventBtn);
@@ -45,11 +46,12 @@ public class CreateVotingEventActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String candidatePosition = candidatePositionET.getText().toString();
                 String candidateName = candidateNameET.getText().toString();
+                String votingCode = votingCodeET.getText().toString();
                 String votingStartTime = votingStartTimeBtn.getText().toString();
-                String votingEndTimeB = votingEndTimeBtn.getText().toString();
+                String votingEndTime = votingEndTimeBtn.getText().toString();
 
-                userModel = new UserModel(candidatePosition,candidateName,votingStartTime,votingEndTimeB);
-                boolean status = votingDatabaseSource.createNewUser(userModel);
+                eventModel = new EventModel(candidatePosition,candidateName,votingCode,votingStartTime,votingEndTime);
+                boolean status = votingDatabaseSource.createVotingPosition(eventModel);
                 if(status){
                     Toast.makeText(CreateVotingEventActivity.this, "Event created successfully", Toast.LENGTH_SHORT).show();
                     startActivity( new Intent(CreateVotingEventActivity.this,AdminDashboardActivity.class));

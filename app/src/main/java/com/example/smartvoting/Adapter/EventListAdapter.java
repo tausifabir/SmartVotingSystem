@@ -1,6 +1,8 @@
 package com.example.smartvoting.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartvoting.Model.EventModel;
 import com.example.smartvoting.Model.UserModel;
 import com.example.smartvoting.R;
+import com.example.smartvoting.SubmitVoteActivity;
 
 import java.util.List;
 
@@ -39,30 +42,54 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         holder.candidatePosition.setText(votingEventList.get(position).getCandidatePosition());
         holder.candidateName.setText(votingEventList.get(position).getCandidateName());
+        holder.votingCode.setText(votingEventList.get(position).getVotingCode());
         holder.votingStartTime.setText(votingEventList.get(position).getVotingStartTime());
         holder.votingEndTime.setText(votingEventList.get(position).getVotingEndTime());
+
+
+        // storing Candidate & send to submit vote
+        final String eventPosition = votingEventList.get(position).getCandidatePosition();
+        final String name = votingEventList.get(position).getCandidateName();
+        final String votingCode = votingEventList.get(position).getVotingCode();
+        final String startTime = votingEventList.get(position).getVotingStartTime();
+        final String endTime = votingEventList.get(position).getVotingEndTime();
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, SubmitVoteActivity.class)
+                        .putExtra("Positoin",eventPosition)
+                        .putExtra("name",name)
+                        .putExtra("votingCode",votingCode)
+                        .putExtra("startTime",startTime)
+                        .putExtra("endTime",endTime));
+
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return votingEventList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
 
-        TextView candidatePosition,candidateName,votingStartTime, votingEndTime;
+        TextView candidatePosition,candidateName,votingCode,votingStartTime, votingEndTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            candidatePosition = itemView.findViewById(R.id.candidatePosition);
-            candidateName = itemView.findViewById(R.id.candidateName);
-            votingStartTime = itemView.findViewById(R.id.votingStartTime);
-            votingEndTime = itemView.findViewById(R.id.votingEndTime);
+
+            candidatePosition = itemView.findViewById(R.id.row_candidatePosition);
+            candidateName = itemView.findViewById(R.id.row_candidateName);
+            votingCode = itemView.findViewById(R.id.row_candidateCode);
+            votingStartTime = itemView.findViewById(R.id.row_votingStartTime);
+            votingEndTime = itemView.findViewById(R.id.row_votingEndTime);
 
         }
     }

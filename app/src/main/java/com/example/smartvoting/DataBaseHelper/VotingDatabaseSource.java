@@ -33,6 +33,7 @@ public class VotingDatabaseSource {
     }
 
 
+    //create new users
     public  boolean createNewUser(UserModel userModel){
         this.open();
         ContentValues contentValues = new ContentValues();
@@ -50,26 +51,8 @@ public class VotingDatabaseSource {
 
     }
 
-    public  boolean createVotingPosition(UserModel userModel){
-        this.open();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(VotingDatabaseHelper.USER_COL_CANDIDATE_POSITION,eventModel.getEventId());
-        contentValues.put(VotingDatabaseHelper.USER_COL_CANDIDATE_POSITION,eventModel.getCandidatePosition());
-        contentValues.put(VotingDatabaseHelper.USER_COL_VOTING_END_TIME,eventModel.getUserId());
-        contentValues.put(VotingDatabaseHelper.USER_COL_CANDIDATE_NAME,eventModel.getCandidateName());
-        contentValues.put(VotingDatabaseHelper.USER_COL_VOTING_START_TIME,eventModel.getVotingStartTime());
-        contentValues.put(VotingDatabaseHelper.USER_COL_VOTING_END_TIME,eventModel.getVotingEndTime());
-        contentValues.put(VotingDatabaseHelper.USER_COL_VOTING_END_TIME,eventModel.getTotalVote());
-        long id = sqLiteDatabase.insert(VotingDatabaseHelper.TABLE_EVENT,null,contentValues);
 
-        if(id > 0){
-            return  true;
-        }else {
-            return  false;
-        }
-
-    }
-
+    // retrieve all user's information
     public ArrayList<UserModel> getAllUsers(){
         ArrayList<UserModel> userModelArrayList = new ArrayList<>();
         this.open();
@@ -99,6 +82,31 @@ public class VotingDatabaseSource {
         return userModelArrayList;
     }
 
+    //creating new Voting events
+    public  boolean createVotingPosition(EventModel eventModel){
+        this.open();
+        ContentValues contentValues1 = new ContentValues();
+        contentValues1.put(VotingDatabaseHelper.EVENT_COL_CANDIDATE_POSITION,eventModel.getCandidatePosition());
+        contentValues1.put(VotingDatabaseHelper.EVENT_COL_CANDIDATE_NAME,eventModel.getCandidateName());
+        contentValues1.put(VotingDatabaseHelper.EVENT_COL_CANDIDATE_CODE,eventModel.getVotingCode());
+        contentValues1.put(VotingDatabaseHelper.EVENT_COL_VOTING_START_TIME,eventModel.getVotingStartTime());
+        contentValues1.put(VotingDatabaseHelper.EVENT_COL_VOTING_END_TIME,eventModel.getVotingEndTime());
+        long id = sqLiteDatabase.insert(VotingDatabaseHelper.TABLE_EVENT,null,contentValues1);
+
+        this.close();
+        if(id > 0){
+            return  true;
+        }else {
+            return  false;
+        }
+
+    }
+
+
+
+
+
+    // retrieve all voting event information
     public ArrayList<EventModel> getAllVotingEvents(){
         ArrayList<EventModel> eventModelList = new ArrayList<>();
         this.open();
@@ -110,12 +118,13 @@ public class VotingDatabaseSource {
 
             for(int i = 0; i < cursor.getCount();i++){
 
-                int id = cursor.getInt(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_ID));
-                String candidatePosition = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_CANDIDATE_POSITION));
-                String candidateName = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_CANDIDATE_NAME));
-                String votingStartTime = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_VOTING_START_TIME));
-                String votingEndTime = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.USER_COL_VOTING_END_TIME));
-                eventModel = new EventModel(id,candidatePosition,candidateName,votingStartTime,votingEndTime);
+                int id = cursor.getInt(cursor.getColumnIndex(VotingDatabaseHelper.EVENT_COL_ID));
+                String candidatePosition = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.EVENT_COL_CANDIDATE_POSITION));
+                String candidateName = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.EVENT_COL_CANDIDATE_NAME));
+                String votingCode = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.EVENT_COL_CANDIDATE_CODE));
+                String votingStartTime = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.EVENT_COL_VOTING_START_TIME));
+                String votingEndTime = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.EVENT_COL_VOTING_END_TIME));
+                eventModel = new EventModel(id,candidatePosition,candidateName,votingCode,votingStartTime,votingEndTime);
                 eventModelList.add(eventModel);
                 cursor.moveToNext();
 
