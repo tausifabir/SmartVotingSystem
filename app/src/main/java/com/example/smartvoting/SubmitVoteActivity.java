@@ -8,13 +8,14 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smartvoting.DataBaseHelper.VotingDatabaseSource;
 import com.example.smartvoting.Model.EventModel;
-import com.example.smartvoting.Model.UserModel;
 
 import java.util.concurrent.Executor;
 
@@ -28,7 +29,11 @@ public class SubmitVoteActivity extends AppCompatActivity {
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
 
-    EventModel eventModel;
+    private EventModel eventModel;
+    private VotingDatabaseSource votingDatabaseSource;
+
+
+    private int eventID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +48,17 @@ public class SubmitVoteActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String position = intent.getStringExtra("Positoin");
+        votingDatabaseSource = new VotingDatabaseSource(this);
+
+        final String position = intent.getStringExtra("Positoin");
         String name = intent.getStringExtra("name");
         String code = intent.getStringExtra("votingCode");
+        eventID = intent.getIntExtra("eventID",0);
 
         voterCandidatePostion.setText(position);
         voterCandidateName.setText(name);
         votercandidateCode.setText(code);
+
 
 
         BiometricManager biometricManager = BiometricManager.from(this);
@@ -85,14 +94,34 @@ public class SubmitVoteActivity extends AppCompatActivity {
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
 
-               /* eventModel = new EventModel(userName,userPhone,userNid);
-                boolean status = votingDatabaseSource.createNewUser(eventModel);
-                if(status){
-                    Toast.makeText(SubmitVoteActivity.this, "You registered successfully", Toast.LENGTH_SHORT).show();
-                    startActivity( new Intent(SubmitVoteActivity.this,ParticipatedVoterListActivity.class));
-                }else{
-                    Toast.makeText(SubmitVoteActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
-                }*/
+                try{
+                    String candidate_countedVote = "100";
+                   /* String pos = "2345";
+                    String candidateName = "ABIRRRR";
+                    String votingCode = "CODE";
+                    String votingStartTime = "24.4.2020";
+                    String votingEndTime = "24.4.2020";*/
+                   
+                    if(eventID > 0){
+                       // eventModel = new EventModel(eventID,pos,candidateName,votingCode,votingStartTime,votingEndTime,candidate_countedVote);
+                        eventModel = new EventModel(eventID,candidate_countedVote);
+                        boolean status = votingDatabaseSource.submitVotes(eventModel);
+                        if(status){
+                            Toast.makeText(SubmitVoteActivity.this, "Vote submitted", Toast.LENGTH_SHORT).show();
+                            startActivity( new Intent(SubmitVoteActivity.this,ViewAllVotingEventsActivity.class));
+                        }else{
+                            Toast.makeText(SubmitVoteActivity.this, "Vote submission Failed", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }else {
+                        Toast.makeText(SubmitVoteActivity.this, "No Row", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (Exception e){
+                    Log.d("SqliteExceptoin", "Exception:  "+e);
+                }
+
+
+
             }
 
             @Override
@@ -113,8 +142,10 @@ public class SubmitVoteActivity extends AppCompatActivity {
 
     }
 
+
     public void onSubmitVote(View view) {
         biometricPrompt.authenticate(promptInfo);
+
     }
 
     public void onCancelVote(View view) {

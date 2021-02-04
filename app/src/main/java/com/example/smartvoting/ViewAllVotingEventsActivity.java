@@ -22,6 +22,7 @@ public class ViewAllVotingEventsActivity extends AppCompatActivity {
     private VotingDatabaseSource votingDatabaseSource;
     private EventListAdapter eventListAdapter;
     private List<EventModel> votingEventList;
+    private EventModel eventModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class ViewAllVotingEventsActivity extends AppCompatActivity {
         eventListRV.setLayoutManager(linearLayoutManager);
         eventListAdapter = new EventListAdapter(ViewAllVotingEventsActivity.this,votingEventList);
         eventListRV.setAdapter(eventListAdapter);
+        eventListAdapter.notifyDataSetChanged();
 
 
 

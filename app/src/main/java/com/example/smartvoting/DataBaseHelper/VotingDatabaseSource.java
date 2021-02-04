@@ -83,7 +83,7 @@ public class VotingDatabaseSource {
     }
 
     //creating new Voting events
-    public  boolean createVotingPosition(EventModel eventModel){
+    public  boolean createVotingEvents(EventModel eventModel){
         this.open();
         ContentValues contentValues1 = new ContentValues();
         contentValues1.put(VotingDatabaseHelper.EVENT_COL_CANDIDATE_POSITION,eventModel.getCandidatePosition());
@@ -91,6 +91,7 @@ public class VotingDatabaseSource {
         contentValues1.put(VotingDatabaseHelper.EVENT_COL_CANDIDATE_CODE,eventModel.getVotingCode());
         contentValues1.put(VotingDatabaseHelper.EVENT_COL_VOTING_START_TIME,eventModel.getVotingStartTime());
         contentValues1.put(VotingDatabaseHelper.EVENT_COL_VOTING_END_TIME,eventModel.getVotingEndTime());
+        contentValues1.put(VotingDatabaseHelper.EVENT_COL_TOTAL_COUNT_VOTE,eventModel.getCandidate_countedVote());
         long id = sqLiteDatabase.insert(VotingDatabaseHelper.TABLE_EVENT,null,contentValues1);
 
         this.close();
@@ -136,5 +137,23 @@ public class VotingDatabaseSource {
         cursor.close();
         this.close();
         return eventModelList;
+    }
+
+
+    // submit vote
+    public boolean submitVotes(EventModel eventModel){
+        this.open();
+        //String WhereClause = VotingDatabaseHelper.EVENT_COL_ID +" = ?";
+        ContentValues contentValues2 = new ContentValues();
+        contentValues2.put(VotingDatabaseHelper.EVENT_COL_ID,eventModel.getEventId());
+        contentValues2.put(VotingDatabaseHelper.EVENT_COL_TOTAL_COUNT_VOTE,eventModel.getCandidate_countedVote());
+        int  rowID = sqLiteDatabase.update(VotingDatabaseHelper.TABLE_EVENT,contentValues2, VotingDatabaseHelper.EVENT_COL_ID+"="+eventModel.getEventId(),null);
+        this.close();
+        if(rowID > 0){
+            return true;
+        }else{
+            return  false;
+        }
+
     }
 }

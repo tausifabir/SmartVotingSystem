@@ -10,9 +10,9 @@ public class EventModel {
     private String candidatePosition;
     private String candidateName;
     private String votingCode;
-    private String VotingStartTime;
-    private String VotingEndTime;
-    private int totalVote;
+    private String votingStartTime;
+    private String votingEndTime;
+    private String candidate_countedVote;
 
 
     public static List<UserModel> eventModelList = new ArrayList<>();
@@ -23,20 +23,35 @@ public class EventModel {
         this.candidatePosition = candidatePosition;
         this.candidateName = candidateName;
         this.votingCode = votingCode;
-        VotingStartTime = votingStartTime;
-        VotingEndTime = votingEndTime;
+        this.votingStartTime = votingStartTime;
+        this.votingEndTime = votingEndTime;
     }
 
-    public EventModel(String candidatePosition, String candidateName, String votingCode, String votingStartTime, String votingEndTime) {
+    public EventModel(String candidatePosition, String candidateName, String votingCode, String votingStartTime, String votingEndTime,String candidate_countedVote) {
         this.candidatePosition = candidatePosition;
         this.candidateName = candidateName;
         this.votingCode = votingCode;
-        VotingStartTime = votingStartTime;
-        VotingEndTime = votingEndTime;
+        this.votingStartTime = votingStartTime;
+        this.votingEndTime = votingEndTime;
+        this.candidate_countedVote = candidate_countedVote;
+
     }
 
+    public EventModel(int eventId, String candidate_countedVote) {
+        this.eventId = eventId;
+        this.candidate_countedVote = candidate_countedVote;
 
+    }
 
+    public EventModel(int eventId, String candidatePosition, String candidateName, String votingCode, String votingStartTime, String votingEndTime, String candidate_countedVote) {
+        this.eventId = eventId;
+        this.candidatePosition = candidatePosition;
+        this.candidateName = candidateName;
+        this.votingCode = votingCode;
+        this.votingStartTime = votingStartTime;
+        this.votingEndTime = votingEndTime;
+        this.candidate_countedVote = candidate_countedVote;
+    }
 
     public int getEventId() {
         return eventId;
@@ -80,32 +95,45 @@ public class EventModel {
     }
 
     public String getVotingStartTime() {
-        return VotingStartTime;
+        return votingStartTime;
     }
 
     public void setVotingStartTime(String votingStartTime) {
-        VotingStartTime = votingStartTime;
+        this.votingStartTime = votingStartTime;
     }
 
     public String getVotingEndTime() {
-        return VotingEndTime;
+        return votingEndTime;
     }
 
     public void setVotingEndTime(String votingEndTime) {
-        VotingEndTime = votingEndTime;
+        this.votingEndTime = votingEndTime;
     }
 
-    public int getTotalVote() {
-        return totalVote;
+    public String getCandidate_countedVote() {
+        return candidate_countedVote;
     }
 
-    public void setTotalVote(int totalVote) {
-        this.totalVote = totalVote;
+    public void setCandidate_countedVote(String candidate_countedVote) {
+        this.candidate_countedVote = candidate_countedVote;
     }
 
     public static List<UserModel> getEventModelList() {
         return eventModelList;
     }
+
+
+
+
+    public int totalVote(int vote){
+        int totalVote = 0;
+        totalVote = totalVote+vote;
+        return totalVote;
+    }
+
+
+
+
 
     @Override
     public String toString() {
@@ -114,9 +142,9 @@ public class EventModel {
                 ", eventId=" + eventId +
                 ", candidatePosition='" + candidatePosition + '\'' +
                 ", candidateName='" + candidateName + '\'' +
-                ", VotingStartTime='" + VotingStartTime + '\'' +
-                ", VotingEndTime='" + VotingEndTime + '\'' +
-                ", totalVote=" + totalVote +
+                ", VotingStartTime='" + votingStartTime + '\'' +
+                ", VotingEndTime='" + votingEndTime + '\'' +
+                ", totalVote=" + candidate_countedVote +
                 '}';
     }
 }

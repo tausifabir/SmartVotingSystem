@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button  userLoginBtn;
     private String adminName = "Abir";
-    private String adminPhone = "01679409720";
+    private String adminPhone = "123456";
 
     private String userName,userPhone;
 
