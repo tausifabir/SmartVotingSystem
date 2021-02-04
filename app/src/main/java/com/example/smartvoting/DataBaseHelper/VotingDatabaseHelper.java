@@ -65,7 +65,7 @@ public class VotingDatabaseHelper extends SQLiteOpenHelper {
                     EVENT_COL_CANDIDATE_CODE+" TEXT,"+
                     EVENT_COL_VOTING_START_TIME+" TEXT,"+
                     EVENT_COL_VOTING_END_TIME+" TEXT,"+
-                    EVENT_COL_TOTAL_COUNT_VOTE+" TEXT)";//+
+                    EVENT_COL_TOTAL_COUNT_VOTE+" INTEGER)";//+
                    //
                     //EVENT_COL_VOTING_Result+"TEXT)";
                    // + "FOREIGN KEY ("+USER_COL_USER_ID+") REFERENCES "+TABLE_USER+"("+USER_COL_USER_ID+"));";

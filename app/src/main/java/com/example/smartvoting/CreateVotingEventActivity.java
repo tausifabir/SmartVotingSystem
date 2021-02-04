@@ -48,9 +48,9 @@ public class CreateVotingEventActivity extends AppCompatActivity {
                 String votingCode = votingCodeET.getText().toString();
                 String votingStartTime = votingStartTimeBtn.getText().toString();
                 String votingEndTime = votingEndTimeBtn.getText().toString();
-                String candidateVote = "3";
 
-                eventModel = new EventModel(candidatePosition,candidateName,votingCode,votingStartTime,votingEndTime,candidateVote);
+
+                eventModel = new EventModel(candidatePosition,candidateName,votingCode,votingStartTime,votingEndTime);
                 boolean status = votingDatabaseSource.createVotingEvents(eventModel);
                 if(status){
                     Toast.makeText(CreateVotingEventActivity.this, "Event created successfully", Toast.LENGTH_SHORT).show();

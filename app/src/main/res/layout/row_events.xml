@@ -44,8 +44,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:text="Candidate Position:"
+                        android:textAlignment="textStart"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -62,8 +64,11 @@
                         android:id="@+id/row_candidatePosition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:hint="President"
+                        android:textAlignment="textStart"
+
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -88,8 +93,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:text="Candidate Name:"
+                        android:textAlignment="textStart"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -106,9 +113,11 @@
                         android:id="@+id/row_candidateName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:hint="Abir"
-                        android:gravity="center"
+                        android:textAlignment="textStart"
+
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -132,8 +141,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:text="Candidate Voting Code:"
+                        android:textAlignment="textStart"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -150,9 +161,11 @@
                         android:id="@+id/row_candidateCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:hint="#03"
-                        android:gravity="center"
+                        android:textAlignment="textStart"
+
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -177,8 +190,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:text="Voting Start Time:"
+                        android:textAlignment="textStart"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -195,9 +210,10 @@
                         android:id="@+id/row_votingStartTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="5dp"
                         android:hint="2.2.2021"
-                        android:gravity="center"
+                        android:textAlignment="textStart"
+                        android:layout_marginBottom="5dp"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -225,8 +241,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:text="Voting End Time :"
+                        android:textAlignment="textStart"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -243,8 +261,10 @@
                         android:id="@+id/row_votingEndTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="5dp"
                         android:hint="4.2.2021"
+                        android:textAlignment="textStart"
+                        android:layout_marginBottom="5dp"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -253,13 +273,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/candidateVote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_marginBottom="5dp"
-                android:visibility="visible">
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -272,16 +291,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Total Vote :"
-                        android:layout_marginBottom="8dp"
-                        android:textSize="18sp" />
+                        android:layout_marginTop="5dp"
+                        android:text="Counted Vote :"
+                        android:textAlignment="textStart"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="19dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -291,9 +311,10 @@
                         android:id="@+id/row_totalVoteCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:textSize="18sp" />
+                        android:layout_marginTop="5dp"
+                        android:textAlignment="textStart"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 

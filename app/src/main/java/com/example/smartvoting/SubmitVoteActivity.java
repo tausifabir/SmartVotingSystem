@@ -34,6 +34,7 @@ public class SubmitVoteActivity extends AppCompatActivity {
 
 
     private int eventID;
+    private int vote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +49,23 @@ public class SubmitVoteActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        eventModel = new EventModel(this);
+
         votingDatabaseSource = new VotingDatabaseSource(this);
 
         final String position = intent.getStringExtra("Positoin");
         String name = intent.getStringExtra("name");
         String code = intent.getStringExtra("votingCode");
         eventID = intent.getIntExtra("eventID",0);
+        vote = intent.getIntExtra("vote",0);
 
         voterCandidatePostion.setText(position);
         voterCandidateName.setText(name);
         votercandidateCode.setText(code);
 
 
+
+        Toast.makeText(SubmitVoteActivity.this, ""+vote, Toast.LENGTH_SHORT).show();
 
         BiometricManager biometricManager = BiometricManager.from(this);
         switch (biometricManager.canAuthenticate()) {
@@ -95,16 +101,14 @@ public class SubmitVoteActivity extends AppCompatActivity {
                 super.onAuthenticationSucceeded(result);
 
                 try{
-                    String candidate_countedVote = "100";
-                   /* String pos = "2345";
-                    String candidateName = "ABIRRRR";
-                    String votingCode = "CODE";
-                    String votingStartTime = "24.4.2020";
-                    String votingEndTime = "24.4.2020";*/
-                   
+
+                    int voted = 1;
+                    int totalVote = voted + vote;
+                    eventModel.setCandidate_countedVote(totalVote);
                     if(eventID > 0){
                        // eventModel = new EventModel(eventID,pos,candidateName,votingCode,votingStartTime,votingEndTime,candidate_countedVote);
-                        eventModel = new EventModel(eventID,candidate_countedVote);
+
+                        eventModel = new EventModel(eventID,totalVote);
                         boolean status = votingDatabaseSource.submitVotes(eventModel);
                         if(status){
                             Toast.makeText(SubmitVoteActivity.this, "Vote submitted", Toast.LENGTH_SHORT).show();

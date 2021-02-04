@@ -1,5 +1,7 @@
 package com.example.smartvoting.Model;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,14 @@ public class EventModel {
     private String votingCode;
     private String votingStartTime;
     private String votingEndTime;
-    private String candidate_countedVote;
+    private int candidate_countedVote = 0;
+    private Context context;
+
+    public EventModel(Context context) {
+        this.context = context;
+    }
+
+    private int totalVote = 0;
 
 
     public static List<UserModel> eventModelList = new ArrayList<>();
@@ -27,23 +36,22 @@ public class EventModel {
         this.votingEndTime = votingEndTime;
     }
 
-    public EventModel(String candidatePosition, String candidateName, String votingCode, String votingStartTime, String votingEndTime,String candidate_countedVote) {
+    public EventModel(String candidatePosition, String candidateName, String votingCode, String votingStartTime, String votingEndTime) {
         this.candidatePosition = candidatePosition;
         this.candidateName = candidateName;
         this.votingCode = votingCode;
         this.votingStartTime = votingStartTime;
         this.votingEndTime = votingEndTime;
-        this.candidate_countedVote = candidate_countedVote;
 
     }
 
-    public EventModel(int eventId, String candidate_countedVote) {
+    public EventModel(int eventId, int candidate_countedVote) {
         this.eventId = eventId;
         this.candidate_countedVote = candidate_countedVote;
 
     }
 
-    public EventModel(int eventId, String candidatePosition, String candidateName, String votingCode, String votingStartTime, String votingEndTime, String candidate_countedVote) {
+    public EventModel(int eventId, String candidatePosition, String candidateName, String votingCode, String votingStartTime, String votingEndTime, int candidate_countedVote) {
         this.eventId = eventId;
         this.candidatePosition = candidatePosition;
         this.candidateName = candidateName;
@@ -110,11 +118,11 @@ public class EventModel {
         this.votingEndTime = votingEndTime;
     }
 
-    public String getCandidate_countedVote() {
+    public int getCandidate_countedVote() {
         return candidate_countedVote;
     }
 
-    public void setCandidate_countedVote(String candidate_countedVote) {
+    public void setCandidate_countedVote(int candidate_countedVote) {
         this.candidate_countedVote = candidate_countedVote;
     }
 
@@ -125,11 +133,7 @@ public class EventModel {
 
 
 
-    public int totalVote(int vote){
-        int totalVote = 0;
-        totalVote = totalVote+vote;
-        return totalVote;
-    }
+
 
 
 

@@ -125,7 +125,8 @@ public class VotingDatabaseSource {
                 String votingCode = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.EVENT_COL_CANDIDATE_CODE));
                 String votingStartTime = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.EVENT_COL_VOTING_START_TIME));
                 String votingEndTime = cursor.getString(cursor.getColumnIndex(VotingDatabaseHelper.EVENT_COL_VOTING_END_TIME));
-                eventModel = new EventModel(id,candidatePosition,candidateName,votingCode,votingStartTime,votingEndTime);
+                int candidateVote = cursor.getInt(cursor.getColumnIndex(VotingDatabaseHelper.EVENT_COL_TOTAL_COUNT_VOTE));
+                eventModel = new EventModel(id,candidatePosition,candidateName,votingCode,votingStartTime,votingEndTime,candidateVote);
                 eventModelList.add(eventModel);
                 cursor.moveToNext();
 
@@ -144,6 +145,7 @@ public class VotingDatabaseSource {
     public boolean submitVotes(EventModel eventModel){
         this.open();
         //String WhereClause = VotingDatabaseHelper.EVENT_COL_ID +" = ?";
+
         ContentValues contentValues2 = new ContentValues();
         contentValues2.put(VotingDatabaseHelper.EVENT_COL_ID,eventModel.getEventId());
         contentValues2.put(VotingDatabaseHelper.EVENT_COL_TOTAL_COUNT_VOTE,eventModel.getCandidate_countedVote());

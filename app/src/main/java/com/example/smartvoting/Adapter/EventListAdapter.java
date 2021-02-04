@@ -49,7 +49,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         holder.votingCode.setText(votingEventList.get(position).getVotingCode());
         holder.votingStartTime.setText(votingEventList.get(position).getVotingStartTime());
         holder.votingEndTime.setText(votingEventList.get(position).getVotingEndTime());
-        holder.candidate_countVote.setText(votingEventList.get(position).getCandidate_countedVote());
+        holder.candidate_countVote.setText(String.valueOf(votingEventList.get(position).getCandidate_countedVote()));
 
 
         // storing Candidate & send to submit vote
@@ -59,6 +59,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         final String votingCode = votingEventList.get(position).getVotingCode();
         final String startTime = votingEventList.get(position).getVotingStartTime();
         final String endTime = votingEventList.get(position).getVotingEndTime();
+        final int candidate_countVote = votingEventList.get(position).getCandidate_countedVote();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +70,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                         .putExtra("name",name)
                         .putExtra("votingCode",votingCode)
                         .putExtra("startTime",startTime)
-                        .putExtra("endTime",endTime));
+                        .putExtra("endTime",endTime)
+                        .putExtra("vote",candidate_countVote));
 
             }
         });
